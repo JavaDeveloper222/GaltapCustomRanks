@@ -1,0 +1,24 @@
+Format: "[%rank_prefix%] %rank_player%"
+MaxRankSize: 3
+MySQL:
+  enable: false
+  host:
+  port:
+  root:
+  password:
+  databaseName:
+
+Default:
+  id: "0"
+  prefix: "0"
+
+Custom:
+  1:
+    id: "1"
+    prefix: "1"
+  2:
+    id: "2"
+    prefix: "2"
+  3:
+    id: "3"
+    prefix: "3"

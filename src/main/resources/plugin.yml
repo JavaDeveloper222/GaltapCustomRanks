@@ -1,0 +1,7 @@
+name: GaltapCustomRanks
+version: '${project.version}'
+main: me.galtap.galtapcustomranks.GaltapCustomRanks
+api-version: '1.20'
+author: GitHub/JavaDeveloper222
+website: https://vk.com/plugincrafting
+depend: [PlaceholderAPI]
