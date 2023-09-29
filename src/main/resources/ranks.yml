@@ -16,9 +16,15 @@ Custom:
   1:
     id: "1"
     prefix: "1"
+    price: 100
+    blocks: 10
   2:
     id: "2"
     prefix: "2"
+    price: 100
+    blocks: 10
   3:
     id: "3"
     prefix: "3"
+    price: 100
+    blocks: 10

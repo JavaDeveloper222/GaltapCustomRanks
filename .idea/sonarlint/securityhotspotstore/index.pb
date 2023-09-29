@@ -29,3 +29,5 @@ p
 @src/main/java/me/galtap/galtapcustomranks/GaltapCustomRanks.java,1\2\12a4b7ed8b98dd3ddceceaa0ff32869a27c58641
 h
 8src/main/java/me/galtap/galtapcustomranks/core/Rank.java,e\a\ea1081bf4134af042a5ff3bde94d2e5a90c14caa
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec

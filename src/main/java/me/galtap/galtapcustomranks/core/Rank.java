@@ -6,12 +6,16 @@ public class Rank {
     private final String id;
     private final String prefix;
     private final int position;
+    private final int price;
+    private final int blockCount;
 
-    public Rank(String id, String prefix, int position){
+    public Rank(String id, String prefix, int position, int price, int blockCount){
 
         this.id = id;
         this.prefix = prefix;
         this.position = position;
+        this.price = price;
+        this.blockCount = blockCount;
     }
 
     public String getId() {
@@ -41,5 +45,13 @@ public class Rank {
     @Override
     public int hashCode() {
         return Objects.hash(id, position);
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getBlockCount() {
+        return blockCount;
     }
 }

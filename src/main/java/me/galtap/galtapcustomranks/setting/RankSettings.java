@@ -40,18 +40,20 @@ public class RankSettings {
             ErrorMessages.ERROR_RANK.logError("Default");
             return;
         }
-        allRanks.add(new Rank(id,prefix,0));
+        allRanks.add(new Rank(id,prefix,0,0,0));
     }
     private void loadAnotherRanks(ConfigurationSection section){
         var position = 1;
         for(String key: section.getKeys(false)){
             var id = section.getString(key+".id");
             String prefix = TextUtil.getColorText(section.getString(key+".prefix"));
-            if(isNull(id,prefix)){
+            int price = section.getInt("price",-1);
+            int blockCount = section.getInt("blocks",-1);
+            if(isNull(id,prefix) || price == -1 || blockCount == -1){
                 ErrorMessages.ERROR_RANK.logError(key);
                 continue;
             }
-            var rank = new Rank(id,prefix,position);
+            var rank = new Rank(id,prefix,position,price,blockCount);
             if(allRanks.contains(rank)){
                 ErrorMessages.SAME_RANK.logError(id,position);
                 continue;
