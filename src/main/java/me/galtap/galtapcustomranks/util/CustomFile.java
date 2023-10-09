@@ -11,16 +11,14 @@ import java.io.IOException;
 public class CustomFile {
     private final FileConfiguration section;
     private final File file;
-    private final JavaPlugin plugin;
 
     public CustomFile(String name, JavaPlugin plugin) {
-        this.plugin = plugin;
         File dataFolder = plugin.getDataFolder();
 
         if (!dataFolder.exists()) {
             boolean created = dataFolder.mkdirs();
             if (!created) {
-                throw new RuntimeException("["+plugin.getName()+"]Не удалось создать папку");
+                LoggerManager.DERICTORY_CREATE_ERROR.logJustError(name);
             }
         }
 
@@ -30,10 +28,10 @@ public class CustomFile {
             try {
                 boolean created = file.createNewFile();
                 if (!created) {
-                    throw new RuntimeException("["+plugin.getName()+"]Не удалось создать файл " + name);
+                    LoggerManager.FILE_CREATE_ERROR.logJustError(name);
                 }
             } catch (IOException e) {
-                throw new RuntimeException("["+plugin.getName()+"]Не удалось создать файл " + name, e);
+                LoggerManager.FILE_CREATE_ERROR.logFatalError(e,name);
             }
         }
 
@@ -48,17 +46,15 @@ public class CustomFile {
         try {
             section.save(file);
         } catch (IOException e) {
-            throw new RuntimeException("["+plugin.getName()+"]Не удалось сохранить файл", e);
+            LoggerManager.FILE_SAVE_ERROR.logFatalError(e,file.getName());
         }
     }
 
     public void reload() {
         try {
             section.load(file);
-        } catch (IOException e) {
-            throw new RuntimeException("["+plugin.getName()+"]Не удалось перезагрузить файл - ошибка ввода/вывода", e);
-        } catch (InvalidConfigurationException e) {
-            throw new RuntimeException("["+plugin.getName()+"]Не удалось перезагрузить файл - неверный формат конфигурации", e);
+        } catch (IOException | InvalidConfigurationException e) {
+            LoggerManager.FILE_RELOAD_ERROR.logFatalError(e,file.getName());
         }
     }
 }

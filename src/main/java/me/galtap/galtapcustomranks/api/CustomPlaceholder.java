@@ -7,11 +7,10 @@ import me.galtap.galtapcustomranks.core.RankManager;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 public class CustomPlaceholder extends PlaceholderExpansion {
+
     private final RankManager rankManager;
 
-    /*
 
-     */
     public CustomPlaceholder(RankManager rankManager){
 
         this.rankManager = rankManager;
@@ -41,9 +40,6 @@ public class CustomPlaceholder extends PlaceholderExpansion {
                 return null;
             }
             return rank.getPrefix();
-        }
-        if(params.equals("player")){
-            return player.getName();
         }
         return null;
 

@@ -1,9 +1,10 @@
 package me.galtap.galtapcustomranks.loader.impl;
 
 import me.galtap.galtapcustomranks.loader.DataLoader;
-import me.galtap.galtapcustomranks.util.AbstractMySQL;
-import org.bukkit.plugin.java.JavaPlugin;
+import me.galtap.galtapcustomranks.util.LoggerManager;
+import me.galtap.galtapcustomranks.util.MySQLConnector;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,10 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class DatabaseLoader extends AbstractMySQL implements DataLoader {
+public class DatabaseLoader implements DataLoader {
+    private final Connection connection;
+    private final MySQLConnector mySQLConnector;
 
-    public DatabaseLoader(String host, int port, String userName, String password, String databaseName, JavaPlugin plugin) {
-        super(host, port, userName, password, databaseName, plugin);
+    public DatabaseLoader(String host, int port, String userName, String password, String databaseName) {
+        mySQLConnector = new MySQLConnector(host,port,userName,password,databaseName);
+        connection = mySQLConnector.getConnection();
         createTable();
     }
 
@@ -23,7 +27,7 @@ public class DatabaseLoader extends AbstractMySQL implements DataLoader {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("[GaltapCustomRanks] не удалось создать таблицу в базе данных", e);
+            LoggerManager.MYSQL_TABLE_CREATE_ERROR.logFatalError(e);
         }
     }
 
@@ -38,7 +42,7 @@ public class DatabaseLoader extends AbstractMySQL implements DataLoader {
                 playerData.put(uuid, rank);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("[GaltapCustomRanks] не удалось получить данные игроков из базы данных", e);
+            LoggerManager.MYSQL_GET_PLAYER_DATA_ERROR.logFatalError(e);
         }
         return playerData;
     }
@@ -52,9 +56,12 @@ public class DatabaseLoader extends AbstractMySQL implements DataLoader {
                 statement.setString(2, rankName);
                 statement.executeUpdate();
             } catch (SQLException e) {
-                throw new RuntimeException("[GaltapCustomRanks] не удалось обновить данные игрока в базе данных", e);
+                LoggerManager.MYSQL_DATA_UPDATE_ERROR.logFatalError(e);
             }
         });
+    }
+    public void closeConnection(){
+        mySQLConnector.closeConnection();
     }
 
 }

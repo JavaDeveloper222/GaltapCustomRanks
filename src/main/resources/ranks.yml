@@ -1,5 +1,8 @@
-Format: "[%rank_prefix%] %rank_player%"
-MaxRankSize: 3
+#placeholder ранга для работы с плагинами привилегий, tab и т.д
+Format: "%rank_prefix%"
+
+#База данных для хранения данных о рангах.
+#Если true, то нужно заполнить данные о базе данных для его подключения и использования
 MySQL:
   enable: false
   host:
@@ -8,23 +11,29 @@ MySQL:
   password:
   databaseName:
 
-Default:
-  id: "0"
-  prefix: "0"
 
+#Дефолтный ранг который будет у всех игроков
+Default:
+  #id ранга
+  id: "0"
+  #префикс для отображения
+  prefix: "[0]"
+
+#В этом месте создаются свои ранги
+#Их цена и минимальное кол-во блоков для их прокачки
 Custom:
   1:
     id: "1"
-    prefix: "1"
+    prefix: "[1]"
     price: 100
     blocks: 10
   2:
     id: "2"
-    prefix: "2"
+    prefix: "[2]"
     price: 100
     blocks: 10
   3:
     id: "3"
-    prefix: "3"
+    prefix: "[3]"
     price: 100
     blocks: 10

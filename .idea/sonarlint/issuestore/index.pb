@@ -1,14 +1,6 @@
 
 q
 Asrc/main/java/me/galtap/galtapcustomranks/util/DefaultConfig.java,2\8\28b5543319c7810a9a54ab300542a63b23144af8
-q
-Asrc/main/java/me/galtap/galtapcustomranks/util/ErrorMessages.java,7\c\7c94209d80f2702e3042c8e98b35dfc379337036
-l
-<src/main/java/me/galtap/galtapcustomranks/util/TextUtil.java,0\9\09986b45731a069dda725bf83398ef0fa7e5bc43
-x
-Hsrc/main/java/me/galtap/galtapcustomranks/core/GaltapCustomRanksAPI.java,4\7\47002d2657423d7740e0dfaa80040323ccc26fef
-r
-Bsrc/main/java/me/galtap/galtapcustomranks/event/EventListener.java,1\5\15ea8d093791ec82f10928c584096b69b344b3fa
 o
 ?src/main/java/me/galtap/galtapcustomranks/core/RankManager.java,4\5\45303c8f8a017b0677f779b886d4ba0784f6f7c2
 n
@@ -17,8 +9,6 @@ s
 Csrc/main/java/me/galtap/galtapcustomranks/setting/RankSettings.java,c\b\cbaebbdefe8eeb5735e6d5d3a1936c4aef1c2eec
 t
 Dsrc/main/java/me/galtap/galtapcustomranks/api/CustomPlaceholder.java,9\0\90bfb99a606fa5a5b1e785b6bd8775bfa314d7c3
-q
-Asrc/main/java/me/galtap/galtapcustomranks/util/AbstractMySQL.java,6\e\6e835c7f2728a913bde27dec032929adfc0e9a06
 y
 Isrc/main/java/me/galtap/galtapcustomranks/loader/impl/DatabaseLoader.java,2\f\2fdad3e69a40f4d609c4102563b11b704c15a92b
 u
@@ -31,3 +21,13 @@ h
 8src/main/java/me/galtap/galtapcustomranks/core/Rank.java,e\a\ea1081bf4134af042a5ff3bde94d2e5a90c14caa
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+r
+Bsrc/main/java/me/galtap/galtapcustomranks/util/MySQLConnector.java,c\8\c8c9748d99309a830767202633731ab0565c5a21
+q
+Asrc/main/java/me/galtap/galtapcustomranks/core/HashDataStore.java,5\4\540fafdab0c53f0f539665083f14d08c1a5e9d34
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+n
+>src/main/java/me/galtap/galtapcustomranks/util/SimpleUtil.java,8\5\85804500711a1666686a34dabbe6d92b114766fc
+q
+Asrc/main/java/me/galtap/galtapcustomranks/util/LoggerManager.java,5\d\5d3dff0c44a11a4cb2c1b30bbde96ec3ab1f46a9

@@ -1,6 +1,5 @@
 package me.galtap.galtapcustomranks.util;
 
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -48,7 +47,7 @@ public class DefaultConfig {
             try {
                 this.getConfig().save(this.file);
             } catch (IOException e) {
-                throw new RuntimeException(ChatColor.RED + "не удалось сохранить файл " + this.file.getName(), e);
+                LoggerManager.FILE_SAVE_ERROR.logFatalError(e,file.getName());
             }
         }
     }

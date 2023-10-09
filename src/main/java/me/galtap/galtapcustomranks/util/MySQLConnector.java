@@ -1,37 +1,32 @@
 package me.galtap.galtapcustomranks.util;
 
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public abstract class AbstractMySQL {
-    private final String pluginName;
+public class MySQLConnector {
     protected Connection connection;
 
-    protected AbstractMySQL(String host, int port, String userName, String password, String databaseName, JavaPlugin plugin){
+    public MySQLConnector(String host, int port, String userName, String password, String databaseName){
         this.connection = getConnect(host,port,databaseName,userName,password);
-        this.pluginName = "["+plugin.getName()+"]";
-
     }
 
     private Connection getConnect(String host, int port, String databaseName, String userName, String password) {
         try {
 
             if (connection != null && !connection.isClosed()) return connection;
-            Bukkit.getLogger().warning(pluginName + " Подключение к базе данных");
+            LoggerManager.CONNECT_PROCESS.logWarning();
             String url = "jdbc:mysql://" + host + ":" + port + "/" + databaseName;
             connection = DriverManager.getConnection(url, userName, password);
 
         } catch (SQLException e) {
-            throw new RuntimeException(pluginName + "не удалось подключиться к базе данных", e);
+            LoggerManager.CONNECTION_FAILED.logFatalError(e);
         }
 
-        Bukkit.getLogger().info(ChatColor.GREEN + pluginName + "успешное подключение к базе данных");
+        LoggerManager.CONNECTED.logColorMessage(ChatColor.GREEN);
         return connection;
     }
     public void closeConnection() {
@@ -40,7 +35,12 @@ public abstract class AbstractMySQL {
                 connection.close();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(pluginName + " Ошибка при отключении соединения из базы данных", e);
+            LoggerManager.CLOSE_CONNECTION_ERROR.logFatalError(e);
+
         }
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 }

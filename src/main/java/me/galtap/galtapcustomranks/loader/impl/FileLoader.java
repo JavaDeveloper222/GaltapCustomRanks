@@ -27,15 +27,13 @@ public class FileLoader implements DataLoader {
 
     @Override
     public void updatePlayerData(String uuid, String rankName) {
-        if(rankName == null && dataFile.getSection().contains(uuid)){
+        if(rankName == null){
             dataFile.getSection().set(uuid,allRanks.get(0).getId());
             saveEndReload();
             return;
         }
-        if(rankName != null){
-            dataFile.getSection().set(uuid,rankName);
-            saveEndReload();
-        }
+        dataFile.getSection().set(uuid, rankName);
+        saveEndReload();
     }
     private boolean rankNotExists(String rankName, String uuid){
         for(Rank rank: allRanks){

@@ -2,8 +2,8 @@ package me.galtap.galtapcustomranks.setting;
 
 import me.galtap.galtapcustomranks.core.Rank;
 import me.galtap.galtapcustomranks.util.DefaultConfig;
-import me.galtap.galtapcustomranks.util.ErrorMessages;
-import me.galtap.galtapcustomranks.util.TextUtil;
+import me.galtap.galtapcustomranks.util.LoggerManager;
+import me.galtap.galtapcustomranks.util.SimpleUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,9 +23,9 @@ public class RankSettings {
         var rankConfig = new DefaultConfig(plugin,"ranks.yml");
         rankConfig.saveConfig();
         ConfigurationSection section = rankConfig.getConfig();
-        ConfigurationSection defaultRankSection = processSection(section,"Default");
-        ConfigurationSection customRankSection = processSection(section,"Custom");
-        ConfigurationSection mysqlSection = processSection(section,"MySQL");
+        ConfigurationSection defaultRankSection = SimpleUtil.processSection(section,"Default");
+        ConfigurationSection customRankSection = SimpleUtil.processSection(section,"Custom");
+        ConfigurationSection mysqlSection = SimpleUtil.processSection(section,"MySQL");
         rankFormat = section.getString("Format");
         loadMysqlData(mysqlSection);
         loadDefaultRank(defaultRankSection);
@@ -36,8 +36,8 @@ public class RankSettings {
     private void loadDefaultRank(ConfigurationSection section){
         var id = section.getString("id");
         var prefix = section.getString("prefix");
-        if(isNull(id,prefix)){
-            ErrorMessages.ERROR_RANK.logError("Default");
+        if(id == null || prefix == null){
+            LoggerManager.ERROR_RANK.logJustError("Default");
             return;
         }
         allRanks.add(new Rank(id,prefix,0,0,0));
@@ -46,16 +46,16 @@ public class RankSettings {
         var position = 1;
         for(String key: section.getKeys(false)){
             var id = section.getString(key+".id");
-            String prefix = TextUtil.getColorText(section.getString(key+".prefix"));
-            int price = section.getInt("price",-1);
-            int blockCount = section.getInt("blocks",-1);
-            if(isNull(id,prefix) || price == -1 || blockCount == -1){
-                ErrorMessages.ERROR_RANK.logError(key);
+            String prefix = SimpleUtil.getColorText(section.getString(key+".prefix"));
+            int price = section.getInt(key+".price",-1);
+            int blockCount = section.getInt(key+".blocks",-1);
+            if(id == null || prefix == null || price == -1 || blockCount == -1){
+                LoggerManager.ERROR_RANK.logJustError(key);
                 continue;
             }
             var rank = new Rank(id,prefix,position,price,blockCount);
             if(allRanks.contains(rank)){
-                ErrorMessages.SAME_RANK.logError(id,position);
+                LoggerManager.SAME_RANK.logJustError(id,position);
                 continue;
             }
             allRanks.add(rank);
@@ -69,20 +69,6 @@ public class RankSettings {
         root = section.getString("root");
         password = section.getString("password");
         databaseName = section.getString("databaseName");
-    }
-    private static ConfigurationSection processSection(ConfigurationSection section, String name){
-        if(section.contains(name)){
-            return section.getConfigurationSection(name);
-        }
-        return section.createSection(name);
-    }
-    private static boolean isNull(String... args){
-        for(String arg: args){
-            if(arg == null) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public List<Rank> getAllRanks() {
