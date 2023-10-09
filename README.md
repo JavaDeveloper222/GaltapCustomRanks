@@ -1,4 +1,4 @@
-GaltapCustomRanks - это простое API для работы с рангами. С его помощью вы можете создавать и управлять рангами в вашей игре. 
+wGaltapCustomRanks - это простое API для работы с рангами. С его помощью вы можете создавать и управлять рангами в вашей игре. 
 ---
 #### Все методы, доступные в API:
 ```Java
@@ -32,6 +32,6 @@ dependency:
 <dependency>
     <groupId>com.github.JavaDeveloper222</groupId>
     <artifactId>GaltapCustomRanks</artifactId>
-    <version>v.2.0.0</version>
+    <version>v.2.0.1</version>
 </dependency>
 ```
